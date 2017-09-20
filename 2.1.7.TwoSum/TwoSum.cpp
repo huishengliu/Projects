@@ -45,4 +45,31 @@ vector<int> TwoSum(vector<int> nums, int target)
 	return result;
 }
 
+#include <algorithm>
 
+vector<int> TwoSum(vector<int>& nums, int target)
+{
+	std::sort(nums.begin(), nums.end());
+
+	vector<int> result[2] = {-1, -1};
+	for (int i=0, j=nums.size()-1; i < j; )
+	{
+		int sum = nums[i] + nums[j];
+		if (sum == target)
+		{
+			result[0] = i;
+			result[1] = j;
+			break;
+		}
+		else if (sum > target)
+		{
+			--j;
+		}
+		else
+		{
+			++i;
+		}
+	}
+
+	return result;
+}
