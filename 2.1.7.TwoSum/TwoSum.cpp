@@ -45,6 +45,8 @@ vector<int> TwoSum(vector<int> nums, int target)
 	return result;
 }
 
+
+// Note: it's only ok if we need the numbers instead of indice.
 #include <algorithm>
 
 vector<int> TwoSum(vector<int>& nums, int target)
