@@ -101,7 +101,7 @@ bool StringToInteger(const char *input, int base, int& value)
 	int sign = GetSign(input, p);
 
 	value = 0;
-	while (*p && IsValidDigit(*p, base))
+	while (*p && IsValidDigit(*p, base))  // need to check min/max
 	{
 		value *= base;
 		value += CtoD(*p, base);
@@ -109,6 +109,45 @@ bool StringToInteger(const char *input, int base, int& value)
 	}
 
 	return *p == '\0';  // or ' ', etc
+}
+
+// dec only
+int StringToInteger(const char *input)
+{
+	if (!input || !*input)
+	{
+		return 0;
+	}
+
+	const char *p = input;
+	while (*p && isspace(*p)) ++p;
+
+	int sign = 1;
+	if (*p && *p == '-') sign = -1, ++p;
+
+	int value = 0;
+	bool overflow = false;
+	while (!overflow && *p && *p >= '0' and *p <= '9')
+	{
+		if (value < INT_MAX / 10)
+		{
+			value *= 10;
+			if (value < INT_MAX - (*p - '0'))
+				value += *p - '0';
+			else
+				overflow = true;
+		}
+		else
+			overflow = true;
+	}
+
+	if (sign == -1 && value == INT_MAX)
+	{
+		overflow = true;
+		value = INT_MIN;
+	}
+
+	return value;
 }
 
 int main()
