@@ -49,7 +49,7 @@ bool IsValidPalindrome2(const std::string& input)
 	int i = 0;
 	int j = input.size() - 1;
 
-	while (i <= j)
+	while (i < j)
 	{
 		if (!isalnum(input[i])) 
 		{ 
@@ -70,7 +70,7 @@ bool IsValidPalindrome2(const std::string& input)
 		}
 	}
 
-	return i > j;
+	return true;
 }
 
 int main()
